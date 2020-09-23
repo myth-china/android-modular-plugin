@@ -11,12 +11,12 @@ class ProjectPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         Printer.println("start project process")
 
-        val globalSrcDebug = project.getByName<Boolean?>("globalSrcDebug")
+        val globalSrcDebug = project.getProperty<Boolean?>("globalSrcDebug")
 
         project.configurations.all { configuration ->
             configuration.resolutionStrategy {
                 it.dependencySubstitution { ds ->
-                    project.getByName<List<Module>>("modules").forEach { m ->
+                    project.getProperty<List<Module>>("modules").forEach { m ->
                         if (globalSrcDebug == true || m.srcDebug == true) {
 
                             val realName = m.name ?: throw getIllegalArgumentException(m, "name error")

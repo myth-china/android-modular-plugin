@@ -9,9 +9,9 @@ class SettingsPlugin : Plugin<Settings> {
     override fun apply(settings: Settings) {
         Printer.println("start settings process")
 
-        val globalSrcDebug = settings.getByName<Boolean?>("globalSrcDebug")
+        val globalSrcDebug = settings.getProperty<Boolean?>("globalSrcDebug")
 
-        settings.getByName<List<Module>>("modules").forEach {
+        settings.getProperty<List<Module>>("modules").forEach {
             if (globalSrcDebug == true || it.srcDebug == true) {
                 val realName = it.name ?: throw getIllegalArgumentException(it, "module name error, must not be null!")
                 val realPath = it.path ?: throw getIllegalArgumentException(it, "module path error ${it.path}")
